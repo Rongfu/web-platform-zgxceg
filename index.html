@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@17/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+    ></script>
+  </head>
+  <body>
+    <div id="app">1</div>
+
+    <script type="text/babel">
+      // jsx  是一个表达式! 表达式! 表达式!
+      // 1 在jsx里面可以使用 {} 引入一个表达式
+      // 2 在jsx 当中节点的class属性要写成className （约定)  className的绑定会覆盖原有的class的属性
+      // 3 style的绑定可以是一个对象的值 ，遇到传统的需要-的样式改写成驼峰的形式 font-size=> fontSize
+      // 4 { } 引入对象的话要注意 不能是一个子节点
+      // 5 jsx当中 使用{/*}   {*/} 来注释代码
+      // 6 布尔值 null undefined 在 {}  在界面中不渲染
+      // 7 如果{ } 引入的是一个数组 那么数组里面的内容就会依次渲染
+      // 8 如果{} 数组的成员是 jsx 那么就需要保证每个jsx根节点都要绑定一个key的属性等于一个唯一值 (约定) 目的是提升react的工作效率
+      // 9 在jsx当中可以给节点绑定事件  绑定事件的方式为 on+事件名(驼峰写法 onInput) ，它的值只能是函数，函数得到的第一个参数是event对象
+
+      const a = 'hi man';
+      const b = 'kfc';
+      const c = ['a', 'b', 'c'];
+      const d = {};
+      const red = 'blue';
+      const f = false;
+      const e = [1, 2, 3, 4].map((item, index) => <li key={index}>{item}</li>);
+      const g = [
+        { id: 1, title: '我是标题1' },
+        { id: 2, title: '我是标题2' },
+        { id: 3, title: '我是标题3' },
+      ];
+      const h = function (arg1, arg2) {
+        console.log('h funtion is fired', arg1);
+        console.log('arg2', arg2);
+      };
+
+      ReactDOM.render(
+        <div>
+          123 {a} {1 + 1} {0 ? 5 : 2} {'abc' || 'efg'}
+          <div className={b}> class的绑定1 </div>
+          <div className={c.join('')}> class的绑定2 </div>
+          <div style={{ color: 'red', fontSize: '20px' }}> style的绑定 </div>
+          {/* }
+                                 <div> { d } </div>
+                                {*/}
+          {undefined}
+          {<h1>123</h1>}
+          {f && <div> 是否渲染 </div>}
+          {e}
+          {g.map((item) => (
+            <div key={item.id}> {item.title}</div>
+          ))}
+          <button onClick={h}>按钮1</button>
+          <button
+            onClick={(ev) => {
+              h(1, ev);
+            }}
+          >
+            按钮2
+          </button>
+        </div>,
+        document.getElementById('app')
+      );
+    </script>
+  </body>
+</html>
